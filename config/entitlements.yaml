@@ -1,0 +1,57 @@
+<%-
+begin
+  require_relative "/data/entitlements/lib/entitlements-and-plugins"
+rescue Exception
+  begin
+    require_relative "lib/entitlements-and-plugins"
+  rescue Exception
+    # We might not have the plugins installed and still want this file to be
+    # loaded. Don't raise anything but silently fail.
+  end
+end
+-%>
+---
+backends:
+  dockerized-ldap:
+    ldap_binddn: <%= ENV["LDAP_BINDDN"] %>
+    ldap_bindpw: <%= ENV["LDAP_BINDPW"] %>
+    ldap_uri: <%= ENV["LDAP_URI"] %>
+    person_dn_format: uid=%KEY%,ou=People,dc=kittens,dc=net
+    type: ldap
+  github-entitlements-org:
+    addr: <%= ENV["GITHUB_API_BASE"] %>
+    org: github-entitlements
+    token: <%= ENV["GITHUB_ENTITLEMENTS_ORG_TOKEN"] %>
+    type: github_org
+  github-entitlements-team:
+    addr: <%= ENV["GITHUB_API_BASE"] %>
+    org: github-entitlements
+    token: <%= ENV["GITHUB_ENTITLEMENTS_ORG_TOKEN"] %>
+    type: github_team
+configuration_path: ../
+extras:
+  ldap_group: {}
+  orgchart:
+    manager_map_file: ../common/manager-map.yaml
+
+groups:
+  dummy-ou:
+    type: dummy
+  dummy-ou-renamed:
+    type: dummy
+    dir: dummy-ou-special
+  entitlements:
+    backend: dockerized-ldap
+    base: ou=Entitlements,ou=Groups,dc=kittens,dc=net
+people:
+  ldap:
+    type: ldap
+    config:
+      base: ou=People,dc=kittens,dc=net
+      ldap_binddn: <%= ENV["LDAP_BINDDN"] %>
+      ldap_bindpw: <%= ENV["LDAP_BINDPW"] %>
+      ldap_uri: <%= ENV["LDAP_URI"] %>
+      person_dn_format: uid=%KEY%,ou=People,dc=kittens,dc=net
+      additional_attributes:
+        - shellentitlements
+people_data_source: ldap

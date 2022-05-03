@@ -1,0 +1,4 @@
+description = Members of the github-entitlements
+
+# Prefer admin over member if defined in both places
+group != github.com/github/org/admin
