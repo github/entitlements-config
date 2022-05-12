@@ -35,4 +35,6 @@ jobs:
       # Here we run a deploy. It is "gated" by the IssueOps logic and will only run if the outputs from our branch-deploy step indicate that the workflow should continue
       - name: deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
-        run: script/deploy
+        run: |
+          script/deploy | tee deploy.out
+          echo "DEPLOY_MESSAGE=$(cat deploy.out)" >> $GITHUB_ENV
