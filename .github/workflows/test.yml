@@ -24,10 +24,10 @@ jobs:
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - name: Set up Ruby 2.6.6
-        uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@57d46d78b7d959dc4a248024a29bb17d4e357e5c
         with:
           ruby-version: 2.6.6
+          bundler-cache: true
 
       - name: bootstrap
         run: script/bootstrap
