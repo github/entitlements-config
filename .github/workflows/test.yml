@@ -39,6 +39,7 @@ jobs:
           set -o pipefail
           script/deploy | tee deploy.out
           MSG=$(cat deploy.out)
+          MSG="\`\`\`output\n${MSG}\n\`\`\`"
           echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
           echo "$MSG" >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
