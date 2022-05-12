@@ -13,26 +13,15 @@ end
 ---
 backends:
   dockerized-ldap:
-    ldap_binddn: <%= ENV["LDAP_BINDDN"] %>
-    ldap_bindpw: <%= ENV["LDAP_BINDPW"] %>
-    ldap_uri: <%= ENV["LDAP_URI"] %>
-    person_dn_format: uid=%KEY%,ou=People,dc=kittens,dc=net
+    ldap_binddn: "cn=admin,dc=example,dc=org"
+    ldap_bindpw: "admin"
+    ldap_uri: "ldaps://127.0.0.1"
+    disable_ssl_verification: true
+    person_dn_format: uid=%KEY%,ou=People,dc=example,dc=org
     type: ldap
-  github-entitlements-org:
-    addr: <%= ENV["GITHUB_API_BASE"] %>
-    org: github-entitlements
-    token: <%= ENV["GITHUB_ENTITLEMENTS_ORG_TOKEN"] %>
-    type: github_org
-  github-entitlements-team:
-    addr: <%= ENV["GITHUB_API_BASE"] %>
-    org: github-entitlements
-    token: <%= ENV["GITHUB_ENTITLEMENTS_ORG_TOKEN"] %>
-    type: github_team
 configuration_path: ../
 extras:
   ldap_group: {}
-  orgchart:
-    manager_map_file: ../common/manager-map.yaml
 
 groups:
   dummy-ou:
@@ -42,16 +31,17 @@ groups:
     dir: dummy-ou-special
   entitlements:
     backend: dockerized-ldap
-    base: ou=Entitlements,ou=Groups,dc=kittens,dc=net
+    base: ou=Entitlements,ou=Groups,dc=example,dc=org
 people:
   ldap:
     type: ldap
     config:
-      base: ou=People,dc=kittens,dc=net
-      ldap_binddn: <%= ENV["LDAP_BINDDN"] %>
-      ldap_bindpw: <%= ENV["LDAP_BINDPW"] %>
-      ldap_uri: <%= ENV["LDAP_URI"] %>
-      person_dn_format: uid=%KEY%,ou=People,dc=kittens,dc=net
+      base: ou=People,dc=example,dc=org
+      ldap_binddn: "cn=admin,dc=example,dc=org"
+      ldap_bindpw: "admin"
+      ldap_uri: "ldaps://127.0.0.1"
+      disable_ssl_verification: true
+      person_dn_format: uid=%KEY%,ou=People,dc=example,dc=org
       additional_attributes:
         - shellentitlements
 people_data_source: ldap

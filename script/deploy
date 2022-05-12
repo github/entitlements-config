@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+
+export PATH=/usr/share/rbenv/shims:$PATH
+export RBENV_VERSION="$(cat "$DIR/.ruby-version")"
+export LDAP_DISABLE_SSL_VERIFICATION=true
+
+echo "===================================================================="
+echo "Starting LDAP"
+echo "Date: $(date), Environment: entitlements-config"
+echo "===================================================================="
+docker rm entitlements-openldap
+docker run -p 389:389 -p 636:636 --env LDAP_TLS_VERIFY_CLIENT=try --volume ${DIR}/script/ldap-server/bootstrap.ldif:/container/service/slapd/assets/config/bootstrap/ldif/custom/50-bootstrap.ldif --name entitlements-openldap --detach osixia/openldap:1.5.0 --copy-service
+sleep 10
+
+echo "===================================================================="
+echo "Executing deploy-entitlements -c ${DIR}/config/entitlements.yaml" "$@"
+echo "Date: $(date), Environment: entitlements-config"
+echo "===================================================================="
+
+set +e
+"${DIR}/bin/deploy-entitlements" -c "${DIR}/config/entitlements.yaml" "$@" 2>&1 | grep -v "not verifying" | tee "${DIR}/deploy-output.txt"
+exitcode=${PIPESTATUS[0]}
+echo "exit=${exitcode}" >> "${DIR}/deploy-output.txt"
+
+docker kill entitlements-openldap
+docker rm entitlements-openldap

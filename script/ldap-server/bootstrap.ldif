@@ -1,0 +1,33 @@
+dn: ou=Groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=Entitlements,ou=Groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=People,dc=example,dc=org
+objectClass: organizationalUnit
+ou: people
+
+dn: uid=danhoerst,ou=People,dc=example,dc=org
+cn: danhoerst
+displayname: danhoerst
+employeenumber: 000001
+manager: uid=danhoerst,ou=People,dc=example,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+objectclass: posixAccount
+objectclass: simpleSecurityObject
+objectclass: shadowAccount
+sn: danhoerst
+uid: danhoerst
+uidnumber: 2022
+gidnumber: 100
+homedirectory: /home/danhoerst
+loginshell: /bin/bash
+userpassword:: e0JDUllQVH0kMmEkMTAkMTdIazZxSExIanM5a2JyMkN0WUk4T1pLUkZQa3ZQ
+ WWRtWEE1dFNiSUxKVzNxTU1DU2VEQ08=
+
