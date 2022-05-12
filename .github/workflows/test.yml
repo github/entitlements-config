@@ -1,0 +1,30 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  rubocop:
+    name: runner / rspec
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: branch-deploy
+        id: branch-deploy
+        uses: GrantBirki/branch-deploy@vX.X.X
+        with:
+          trigger: ".deploy"
+          reaction: "eyes"
+          environment: "production"
+
+      # Any deployment logic you can dream of in Actions goes below here...
+
+      # Here we run a deploy. It is "gated" by the IssueOps logic and will only run if the outputs from our branch-deploy step indicate that the workflow should continue
+      - name: deploy
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
+        run: script/deploy
