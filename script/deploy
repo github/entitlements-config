@@ -29,6 +29,8 @@ set +e
 "${DIR}/bin/deploy-entitlements" -c "${DIR}/config/entitlements.yaml" "$@" 2>&1 | grep -v "not verifying" | tee "${DIR}/deploy-output.txt"
 exitcode=${PIPESTATUS[0]}
 echo "exit=${exitcode}" >> "${DIR}/deploy-output.txt"
+export DEPLOY_MESSAGE=$(cat ${DIR}/deploy-output.txt)
+echo ${DEPLOY_MESSAGE} >> ${GITHUB_ENV}
 
 docker kill entitlements-openldap
 docker rm entitlements-openldap
