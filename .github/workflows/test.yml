@@ -24,6 +24,9 @@ jobs:
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
+      - name: bootstrap
+        run: script/bootstrap
+
       # Here we run a deploy. It is "gated" by the IssueOps logic and will only run if the outputs from our branch-deploy step indicate that the workflow should continue
       - name: deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
