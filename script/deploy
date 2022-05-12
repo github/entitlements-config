@@ -1,6 +1,10 @@
 #!/bin/bash
 
-export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+if [[ -z "${GITHUB_WORKSPACE}" ]]; then
+  export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && cd .. && pwd )"
+else
+  export DIR="${GITHUB_WORKSPACE}"
+fi
 
 export PATH=/usr/share/rbenv/shims:$PATH
 export RBENV_VERSION="$(cat "$DIR/.ruby-version")"
