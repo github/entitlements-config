@@ -1,0 +1,7 @@
+dn: ou=Groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=Entitlements,ou=Groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups

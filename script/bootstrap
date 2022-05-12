@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+export PATH=/usr/share/rbenv/shims:$PATH
+export RBENV_VERSION="$(cat .ruby-version)"
+TEMP_HOME="${DIR}"
+rm -rf ".bundle"
+HOME=${TEMP_HOME} bundle install --path vendor/gems --local
+bundle binstubs entitlements --force --path ./bin
+bundle clean
