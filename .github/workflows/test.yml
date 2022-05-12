@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: branch-deploy
         id: branch-deploy
-        uses: GrantBirki/branch-deploy@v1.3.0
+        uses: GrantBirki/branch-deploy@333ba95ed89be2efe1cd49dc2781c8556a742eba # pin@v1.3.0
 
       # Any deployment logic you can dream of in Actions goes below here...
 
