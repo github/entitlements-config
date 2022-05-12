@@ -18,8 +18,11 @@ jobs:
       - name: branch-deploy
         id: branch-deploy
         uses: GrantBirki/branch-deploy@333ba95ed89be2efe1cd49dc2781c8556a742eba # pin@v1.3.0
-
-      # Any deployment logic you can dream of in Actions goes below here...
+        
+      # Check out the ref from the output of the IssueOps command
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # pin@v3.0.2
+        with:
+          ref: ${{ steps.branch-deploy.outputs.ref }}
 
       # Here we run a deploy. It is "gated" by the IssueOps logic and will only run if the outputs from our branch-deploy step indicate that the workflow should continue
       - name: deploy
