@@ -30,3 +30,4 @@ echo "exit=${exitcode}" >> "${DIR}/deploy-output.txt"
 
 docker kill entitlements-openldap 2&> /dev/null
 docker rm entitlements-openldap 2&> /dev/null
+exit ${exitcode}
