@@ -10,8 +10,6 @@ export PATH=/usr/share/rbenv/shims:$PATH
 export RBENV_VERSION="$(cat "$DIR/.ruby-version")"
 export LDAP_DISABLE_SSL_VERIFICATION=true
 
-${DIR}/script/bootstrap
-
 echo "===================================================================="
 echo "Starting LDAP"
 echo "Date: $(date), Environment: entitlements-config"
