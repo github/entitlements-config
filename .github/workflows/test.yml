@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: branch-deploy
         id: branch-deploy
-        uses: GrantBirki/branch-deploy@vX.X.X
+        uses: GrantBirki/branch-deploy@v1.3.0
         with:
           trigger: ".deploy"
           reaction: "eyes"
