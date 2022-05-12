@@ -17,10 +17,6 @@ jobs:
       - name: branch-deploy
         id: branch-deploy
         uses: GrantBirki/branch-deploy@v1.3.0
-        with:
-          trigger: ".deploy"
-          reaction: "eyes"
-          environment: "production"
 
       # Any deployment logic you can dream of in Actions goes below here...
 
