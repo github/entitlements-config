@@ -13,8 +13,6 @@ jobs:
   rubocop:
     name: runner / rspec
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: branch-deploy
