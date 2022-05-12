@@ -36,5 +36,9 @@ jobs:
       - name: deploy
         if: ${{ steps.branch-deploy.outputs.continue == 'true' && steps.branch-deploy.outputs.noop != 'true' }}
         run: |
+          set -o pipefail
           script/deploy | tee deploy.out
-          echo "DEPLOY_MESSAGE=$(cat deploy.out)" >> $GITHUB_ENV
+          MSG=$(cat deploy.out)
+          echo 'DEPLOY_MESSAGE<<EOF' >> $GITHUB_ENV
+          echo "$MSG" >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
