@@ -3,6 +3,7 @@
 echo "Checking for modified users to request manager review"
 # Get the PR diff
 diff=$(git diff)
+echo "Diff: ${diff}"
 # See if the PR diff is related to entitlements configs
 while IFS='' read -r FILES; do
   # Check each line of each entitlement config and grab the affected users
