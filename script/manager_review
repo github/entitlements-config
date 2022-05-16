@@ -9,6 +9,7 @@ while IFS='' read -r FILES; do
   for line in "${FILES[@]}"; do
     if [[ $line = "+username"* ]] || [[ $line = "-username"* ]]
     then
+        echo "Found username in ${line}"
     	IFS=" " read declaration comparison name <<< $line
     	# Grab the manager from the Org Chart for each affected user
         manager=$(yq e '.[env(name)].manager' config/orgchart.yaml)
