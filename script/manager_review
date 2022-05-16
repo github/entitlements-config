@@ -23,4 +23,3 @@ while IFS='' read -r FILES; do
     fi
   done
 done <<< "$diff"
-
