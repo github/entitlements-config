@@ -19,6 +19,8 @@ jobs:
           bundler-cache: true
 
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: install yq
         run: sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
