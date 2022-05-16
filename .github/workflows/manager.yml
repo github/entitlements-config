@@ -5,6 +5,7 @@ on:
 
 permissions:
   pull-requests: write
+  contents: read
 
 jobs:
   rubocop:
@@ -17,7 +18,7 @@ jobs:
           ruby-version: 2.6.6
           bundler-cache: true
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
 
       - name: install yq
         run: sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
