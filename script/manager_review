@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Checking for modified users to request manager review"
 # Get the PR diff
 diff=$(git diff)
 # See if the PR diff is related to entitlements configs
