@@ -1,6 +1,10 @@
 #!/bin/bash
 
-echo "Checking for modified users to request manager review"
+if [ -z $GITHUB_HEAD_REF ];
+then
+    GITHUB_HEAD_REF=$(git rev-parse --abbrev-ref HEAD)
+fi
+
 # Get the PR diff
 diff=$(git diff origin/main origin/${GITHUB_HEAD_REF})
 # See if the PR diff is related to entitlements configs
