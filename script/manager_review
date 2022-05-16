@@ -14,7 +14,7 @@ while IFS='' read -r FILES; do
     	export name=$name
         manager=$(yq e '.[env(name)].manager' config/orgchart.yaml)
         echo $manager
-        # Comment
+        exit 0
     	IFS=''
     fi
   done

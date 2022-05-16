@@ -27,4 +27,9 @@ jobs:
         run: sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 
       - name: manager review
-        run: script/manager_review
+        run: echo "managers=$(script/manager_review)" >> $GITHUB_ENV
+
+      steps:
+        - uses: delivery-much/actions-assigner@v1
+          with:
+            reviewers: "${{ env.managers }}"
