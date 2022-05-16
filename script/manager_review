@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Get the PR diff
+diff=$(git diff)
+# See if the PR diff is related to entitlements configs
+while IFS='' read -r FILES; do
+  # Check each line of each entitlement config and grab the affected users
+  for line in "${FILES[@]}"; do
+    if [[ $line = "+username"* ]] || [[ $line = "-username"* ]]
+    then
+    	IFS=" " read declaration comparison name <<< $line
+    	# Grab the manager from the Org Chart for each affected user
+        manager=$(yq e '.[env(name)].manager' config/orgchart.yaml)
+        echo $manager
+        # Comment
+    	IFS=''
+    fi
+  done
+done <<< "$diff"
+
