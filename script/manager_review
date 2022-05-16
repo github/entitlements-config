@@ -3,7 +3,6 @@
 echo "Checking for modified users to request manager review"
 # Get the PR diff
 diff=$(git diff origin/main origin/${GITHUB_HEAD_REF})
-echo "Diff: ${diff}"
 # See if the PR diff is related to entitlements configs
 while IFS='' read -r FILES; do
   # Check each line of each entitlement config and grab the affected users
@@ -13,6 +12,7 @@ while IFS='' read -r FILES; do
         echo "Found username in ${line}"
     	IFS=" " read declaration comparison name <<< $line
     	# Grab the manager from the Org Chart for each affected user
+    	export name=$name
         manager=$(yq e '.[env(name)].manager' config/orgchart.yaml)
         echo $manager
         # Comment
