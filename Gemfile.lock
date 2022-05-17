@@ -8,7 +8,7 @@ GEM
     debase (0.2.4.1)
       debase-ruby_core_source (>= 0.10.2)
     debase-ruby_core_source (0.10.15)
-    entitlements (0.1.5.g0306a452)
+    entitlements (0.1.5.g483ae1f9)
       concurrent-ruby (= 1.1.9)
       contracts (= 0.16.0)
       faraday (>= 0.17.3, < 0.18)
@@ -39,9 +39,12 @@ DEPENDENCIES
   concurrent-ruby
   contracts
   debase
-  entitlements (= 0.1.5.g0306a452)
+  entitlements (= 0.1.5.g483ae1f9)
   faraday
   net-ldap
   octokit
   ruby-debug-ide
   sawyer
+
+BUNDLED WITH
+   2.2.24
