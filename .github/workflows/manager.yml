@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ruby/setup-ruby@e932e7af67fc4a8fc77bd86b744acd4e42fe3543
+      - uses: ruby/setup-ruby@v1.1.3
         with:
           ruby-version: 2.7.5
           bundler-cache: true
