@@ -24,7 +24,7 @@ jobs:
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - uses: ruby/setup-ruby@v1.1.3
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.7.5
           bundler-cache: true
