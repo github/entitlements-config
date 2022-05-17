@@ -1,0 +1,34 @@
+name: manager
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  rubocop:
+    name: runner
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ruby/setup-ruby@cd4241788aec4fdcd3325da7068efa9b62a017af
+        with:
+          ruby-version: 2.7.5
+          bundler-cache: true
+
+      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+        with:
+          fetch-depth: 0
+
+      - name: install yq
+        run: sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+
+      - name: manager review
+        run: echo "managers=$(script/manager_review)" >> $GITHUB_ENV
+
+      - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
+        with:
+          reviewers: "${{ env.managers }}"
