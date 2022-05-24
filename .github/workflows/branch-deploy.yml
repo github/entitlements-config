@@ -1,4 +1,4 @@
-name: test
+name: branch-deploy
 
 on:
   issue_comment:
