@@ -7,23 +7,29 @@ fi
 
 # Get the PR diff
 diff=$(git diff origin/main origin/${GITHUB_HEAD_REF})
-audit_files=()
+audited_files=$(yq 'keys' "config/audit.yaml" | sed 's/- //')
+IFS=$'\n' read -rd '' -a audited_files <<<"$audited_files"
 # See if the PR diff is related to entitlements configs
 while IFS='' read -r FILES; do
   for line in "${FILES[@]}"; do
     if [[ $line = "+++ "* ]] || [[ $line = "--- "* ]]
     then
+      #echo $audited_files
     	IFS=" " read add_remove file_name <<< $line
-    	echo $file_name
-    	# Grab the manager from the Org Chart for each affected user
-      audited_files=$(yq 'keys' "audit.yaml")
-    	for i in "${audited_files[@]}"
+    	export file_name=$(echo $file_name | sed 's/^b\///')
+    	for i in ${audited_files}
       do
-         :
          audited_file=$(echo ${i} | sed 's/- //')
-         if [[ $file_name == *"$audited_file"* ]];
+         if [[ $file_name == $audited_file ]];
          then
-             echo "YES"
+             defined_checksum=$(yq e '.[env(file_name)].sha256sum' config/audit.yaml)
+             actual_checksum=$(sha256sum "${file_name}" | sed "s@  $file_name@@")
+             if [[ $defined_checksum == $actual_checksum ]];
+             then
+               echo "Correct checksum for ${file_name}"
+            else
+               exit 1
+            fi
          fi
       done
     	IFS=''
