@@ -15,3 +15,7 @@ Example entitlements files can be found in `entitlements/`
 ## GitHub Actions
 
 An example of deployment and manager review GitHub Actions can be found in `.github/workflows`
+
+## Examples
+
+The scripts which the example Actions run can be found in `examples/`
