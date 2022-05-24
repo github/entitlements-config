@@ -1,0 +1,32 @@
+#!/bin/bash
+
+if [ -z $GITHUB_HEAD_REF ];
+then
+    GITHUB_HEAD_REF=$(git rev-parse --abbrev-ref HEAD)
+fi
+
+# Get the PR diff
+diff=$(git diff origin/main origin/${GITHUB_HEAD_REF})
+audit_files=()
+# See if the PR diff is related to entitlements configs
+while IFS='' read -r FILES; do
+  for line in "${FILES[@]}"; do
+    if [[ $line = "+++ "* ]] || [[ $line = "--- "* ]]
+    then
+    	IFS=" " read add_remove file_name <<< $line
+    	echo $file_name
+    	# Grab the manager from the Org Chart for each affected user
+      audited_files=$(yq 'keys' "audit.yaml")
+    	for i in "${audited_files[@]}"
+      do
+         :
+         audited_file=$(echo ${i} | sed 's/- //')
+         if [[ $file_name == *"$audited_file"* ]];
+         then
+             echo "YES"
+         fi
+      done
+    	IFS=''
+    fi
+  done
+done <<< "$diff"
