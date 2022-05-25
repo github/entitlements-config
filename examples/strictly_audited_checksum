@@ -28,6 +28,7 @@ while IFS='' read -r FILES; do
              then
                echo "Correct checksum for ${file_name}"
             else
+               echo "Incorrect checksum for ${file_name}"
                exit 1
             fi
          fi

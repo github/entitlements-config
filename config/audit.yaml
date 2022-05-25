@@ -1,5 +1,5 @@
 entitlements/strictly-audited/admin.txt:
-  sha256sum: ef9dda024f42b1773152d9fed6084d06738e989a99a342459b0f2de126ac93d4
+  sha256sum: a2eb708ae437c7c477ce115690d8cc45edcaf815c85d3ae22bbfc5dd6a0443ef
   format:
     - txt
   reviews:
