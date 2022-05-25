@@ -1,4 +1,4 @@
-name: manager
+name: checksum
 
 on:
   pull_request:
@@ -26,9 +26,5 @@ jobs:
       - name: install yq
         run: sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
 
-      - name: manager review
-        run: echo "managers=$(examples/manager_review)" >> $GITHUB_ENV
-
-      - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
-        with:
-          reviewers: "${{ env.managers }}"
+      - name: checksum audited entitlements
+        run: examples/strictly_audited_checksum

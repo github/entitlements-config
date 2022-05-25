@@ -45,6 +45,3 @@ DEPENDENCIES
   octokit
   ruby-debug-ide
   sawyer
-
-BUNDLED WITH
-   2.2.24

@@ -6,6 +6,10 @@ dn: ou=Entitlements,ou=Groups,dc=example,dc=org
 objectClass: organizationalUnit
 ou: groups
 
+dn: ou=strictly-audited,ou=Entitlements,ou=Groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups
+
 dn: ou=People,dc=example,dc=org
 objectClass: organizationalUnit
 ou: people
@@ -15,6 +19,12 @@ objectClass: top
 objectClass: groupOfUniqueNames
 uniqueMember: uid=danhoerst,ou=People,dc=example,dc=org
 uniqueMember: uid=mrsbworth,ou=People,dc=example,dc=org
+ou: groups
+
+dn: cn=admin,ou=strictly-audited,ou=Entitlements,ou=Groups,dc=example,dc=org
+objectClass: top
+objectClass: groupOfUniqueNames
+uniqueMember: uid=danhoerst,ou=People,dc=example,dc=org
 ou: groups
 
 dn: uid=danhoerst,ou=People,dc=example,dc=org

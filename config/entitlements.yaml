@@ -32,6 +32,11 @@ groups:
   entitlements:
     backend: dockerized-ldap
     base: ou=Entitlements,ou=Groups,dc=example,dc=org
+  entitlements/strictly-audited:
+    backend: dockerized-ldap
+    base: ou=strictly-audited,ou=Entitlements,ou=Groups,dc=example,dc=org
+    dir: entitlements/strictly-audited
+    create_if_missing: true
 people:
   ldap:
     type: ldap

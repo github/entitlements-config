@@ -1,0 +1,11 @@
+entitlements/strictly-audited/admin.txt:
+  sha256sum: a2eb708ae437c7c477ce115690d8cc45edcaf815c85d3ae22bbfc5dd6a0443ef
+  format:
+    - txt
+  reviews:
+    enabled: true
+    labels:
+      - Periodic Audit
+    days: 182
+    strategy: manager
+    title: Admin access
