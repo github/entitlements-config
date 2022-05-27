@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: branch-deploy
         id: branch-deploy
-        uses: GrantBirki/branch-deploy@333ba95ed89be2efe1cd49dc2781c8556a742eba # pin@v1.3.0
+        uses: GrantBirki/branch-deploy@5d7ea46552d858242fa4bf16625e9f29b1ee1b63 # pin@v1.4.2
         
       # Check out the ref from the output of the IssueOps command
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # pin@v3.0.2
