@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "entitlements", "0.1.5.g483ae1f9"
+gem "entitlements", "0.1.7"
 gem "contracts"
 gem "faraday"
 gem "net-ldap"
