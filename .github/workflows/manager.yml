@@ -30,5 +30,6 @@ jobs:
         run: echo "managers=$(examples/manager_review)" >> $GITHUB_ENV
 
       - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
+        if: "${{ env.manager != '' }}"
         with:
           reviewers: "${{ env.managers }}"
