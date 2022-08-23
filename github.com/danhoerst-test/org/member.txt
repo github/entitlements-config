@@ -1,0 +1,6 @@
+description = Members of the danhoerst-test
+
+# Prefer admin over member if defined in both places
+group != github.com/github/org/admin
+metadata_no_conditions_ok = true
+metadata_no_members_ok = true
