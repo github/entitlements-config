@@ -1,5 +1,6 @@
 # entitlements-config 📜
 
+
 [![branch-deploy](https://github.com/github/entitlements-config/actions/workflows/branch-deploy.yml/badge.svg)](https://github.com/github/entitlements-config/actions/workflows/branch-deploy.yml)
 
 entitlements-config is an example of using [entitlements-app](https://github.com/github/entitlements-app) to manage a set of configuration.
