@@ -29,7 +29,7 @@ jobs:
       - name: manager review
         run: echo "managers=$(examples/manager_review)" >> $GITHUB_ENV
 
-      - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
-        if: "${{ env.manager != '' }}"
+      - uses: madrapps/add-reviewers@v1
+        if: "${{ env.managers != '' }}"
         with:
           reviewers: "${{ env.managers }}"
