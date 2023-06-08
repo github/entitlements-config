@@ -23,7 +23,7 @@ jobs:
 
       - uses: ruby/setup-ruby@cd4241788aec4fdcd3325da7068efa9b62a017af
         with:
-          ruby-version: 2.7.5
+          ruby-version: 3.2.0
           bundler-cache: true
 
       - name: bootstrap
