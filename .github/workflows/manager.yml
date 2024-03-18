@@ -22,20 +22,6 @@ jobs:
         with:
           bundler-cache: true
 
-      # Check the PR diff using the current branch and the base branch of the PR
-      - uses: GrantBirki/git-diff-action@d3f05c95a4dcb7025d07972df3cfcf9c1c53c00d # pin@v2.4.1
-        id: git-diff-action
-        with:
-          json_diff_file_output: diff.json
-          file_output_only: "true"
-          max_buffer_size: 10000000000
-
-      # Print the diff in JSON format
-      - name: print json diff
-        env:
-          DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
-        run: cat $DIFF
-
       - name: manager review
         id: manager_review
         run: echo "managers=$(examples/manager_review)" >> $GITHUB_OUTPUT
