@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ -z $GITHUB_HEAD_REF ];
+then
+  GITHUB_HEAD_REF=$(git rev-parse --abbrev-ref HEAD)
+fi
+
+# Get the PR diff
+diff=$(git diff origin/main origin/${GITHUB_HEAD_REF})
+# See if the PR diff is related to entitlements configs
+while IFS='' read -r FILES; do
+  # Check each line of each entitlement config and grab the affected users
+  for line in "${FILES[@]}"; do
+    if [[ $line = "+username"* ]] || [[ $line = "-username"* ]]
+    then
+    	IFS=" " read declaration comparison name <<< $line
+    	# Grab the manager from the Org Chart for each affected user
+    	export name=$name
+        manager=$(yq e '.[env(name)].manager' config/orgchart.yaml)
+        # skip if manager is null
+        if [ -z $manager ];
+        then
+          continue
+        fi
+
+        echo $manager
+        exit 0
+    	IFS=''
+    fi
+  done
+done <<< "$diff"

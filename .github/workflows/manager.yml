@@ -38,14 +38,9 @@ jobs:
 
       - name: manager review
         id: manager_review
-        env:
-          DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
-        run: |
-          bundle exec ruby examples/manager_review.rb
-          echo "managers=$(cat managers.txt)" >> $GITHUB_OUTPUT
-          rm managers.txt
+        run: echo "managers=$(examples/manager_review)" >> $GITHUB_OUTPUT
 
       - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
-        if: steps.manager_review.outputs.managers != '$NO_MANAGERS_FOUND$'
+        if: steps.manager_review.outputs.managers != ''
         with:
           reviewers: ${{ steps.manager_review.outputs.managers }}
