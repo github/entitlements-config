@@ -29,6 +29,12 @@ jobs:
           json_diff_file_output: diff.json
           file_output_only: "true"
 
+      # Print the diff in JSON format
+      - name: print json diff
+        env:
+          DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
+        run: cat $DIFF
+
       - name: manager review
         id: manager_review
         env:
