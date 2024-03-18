@@ -31,6 +31,8 @@ jobs:
 
       - name: manager review
         id: manager_review
+        env:
+          DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
         run: |
           bundle exec ruby examples/manager_review.rb
           echo "managers=$(cat managers.txt)" >> $GITHUB_OUTPUT
