@@ -26,8 +26,9 @@ jobs:
         id: manager_review
         run: echo "managers=$(examples/manager_review)" >> $GITHUB_OUTPUT
 
-      - name: request reviews
+        # this step is likely broken and needs a dedicated GitHub PAT
+      - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
         if: steps.manager_review.outputs.managers != ''
-        run: |
-          managers=$(echo "${{ steps.manager_review.outputs.managers }}" | tr '\n' ',')
-          gh pr review --request=$managers
+        continue-on-error: true
+        with:
+          reviewers: ${{ steps.manager_review.outputs.managers }}
