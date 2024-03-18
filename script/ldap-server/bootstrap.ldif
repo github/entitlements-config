@@ -18,7 +18,7 @@ dn: cn=access,ou=Entitlements,ou=Groups,dc=example,dc=org
 objectClass: top
 objectClass: groupOfUniqueNames
 uniqueMember: uid=danhoerst,ou=People,dc=example,dc=org
-uniqueMember: uid=entitlements-config-bot,ou=People,dc=example,dc=org
+uniqueMember: uid=hubot,ou=People,dc=example,dc=org
 ou: groups
 
 dn: cn=admin,ou=strictly-audited,ou=Entitlements,ou=Groups,dc=example,dc=org
@@ -237,11 +237,11 @@ loginshell: /bin/bash
 userpassword:: e0JDUllQVH0kMmEkMTAkMTdIazZxSExIanM5a2JyMkN0WUk4T1pLUkZQa3ZQ
  WWRtWEE1dFNiSUxKVzNxTU1DU2VEQ08=
 
-dn: uid=entitlements-config-bot,ou=People,dc=example,dc=org
-cn: entitlements-config-bot
-displayname: entitlements-config-bot
+dn: uid=hubot,ou=People,dc=example,dc=org
+cn: hubot
+displayname: hubot
 employeenumber: 000001
-manager: uid=entitlements-config-bot,ou=People,dc=example,dc=org
+manager: uid=hubot,ou=People,dc=example,dc=org
 objectclass: top
 objectclass: person
 objectclass: organizationalPerson
@@ -249,11 +249,11 @@ objectclass: inetOrgPerson
 objectclass: posixAccount
 objectclass: simpleSecurityObject
 objectclass: shadowAccount
-sn: entitlements-config-bot
-uid: entitlements-config-bot
+sn: hubot
+uid: hubot
 uidnumber: 2022
 gidnumber: 100
-homedirectory: /home/entitlements-config-bot
+homedirectory: /home/hubot
 loginshell: /bin/bash
 userpassword:: e0JDUllQVH0kMmEkMTAkMTdIazZxSExIanM5a2JyMkN0WUk4T1pLUkZQa3ZQ
  WWRtWEE1dFNiSUxKVzNxTU1DU2VEQ08=
