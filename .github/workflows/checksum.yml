@@ -22,8 +22,5 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: install yq
-        run: sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-
       - name: checksum audited entitlements
         run: examples/strictly_audited_checksum
