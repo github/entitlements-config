@@ -29,17 +29,14 @@ jobs:
           json_diff_file_output: diff.json
           file_output_only: "true"
 
-      # Print the diff in JSON format
-      - name: print json diff
-        env:
-          DIFF: ${{ steps.git-diff-action.outputs.json-diff-path }}
-        run: cat $DIFF
-
       - name: manager review
         id: manager_review
-        run: echo "managers=$(examples/manager_review)" >> $GITHUB_OUTPUT
+        run: |
+          bundle exec ruby examples/manager_review.rb
+          echo "managers=$(cat managers.txt)" >> $GITHUB_OUTPUT
+          rm managers.txt
 
       - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
-        if: steps.manager_review.outputs.managers != ''
+        if: steps.manager_review.outputs.managers != '$NO_MANAGERS_FOUND$'
         with:
           reviewers: ${{ steps.manager_review.outputs.managers }}
