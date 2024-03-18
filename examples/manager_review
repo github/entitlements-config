@@ -17,8 +17,9 @@ while IFS='' read -r FILES; do
     	# Grab the manager from the Org Chart for each affected user
     	export name=$name
         manager=$(yq e '.[env(name)].manager' config/orgchart.yaml)
+
         # skip if manager is null
-        if [ -z $manager ];
+        if [[ -z $manager ]] || [[ $manager = "null" ]];
         then
           continue
         fi
