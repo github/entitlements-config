@@ -16,6 +16,8 @@ Example entitlements files can be found in [`entitlements/`](entitlements/)
 
 An example of deployment and manager review GitHub Actions can be found in [`.github/workflows`](.github/workflows)
 
+This project uses the [`github/branch-deploy`](https://github.com/github/branch-deploy) Action to facilitate deployments. The `branch-deploy` Action is uses to "branch deploy" pull requests to a given environment (in this case production) so that changes can be previewed before merging.
+
 ## Examples 📸
 
 The scripts which the example Actions run can be found in [`examples/`](examples/)
