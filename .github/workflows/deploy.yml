@@ -1,0 +1,44 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  deployment-check:
+    runs-on: ubuntu-latest
+    outputs: # set outputs for use in downstream jobs
+      continue: ${{ steps.deployment-check.outputs.continue }}
+
+    steps:
+      # https://github.com/github/branch-deploy/blob/d3c24bd92505e623615b75ffdfac5ed5259adbdb/docs/merge-commit-strategy.md
+      - name: deployment check
+        uses: github/branch-deploy@v9
+        id: deployment-check
+        with:
+          merge_deploy_mode: "true"
+          environment: production
+
+  deploy:
+    if: ${{ needs.deployment-check.outputs.continue == 'true' && github.event_name == 'push' }}
+    needs: deployment-check
+    environment: production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      
+      - uses: ruby/setup-ruby@cd4241788aec4fdcd3325da7068efa9b62a017af
+        with:
+          bundler-cache: true
+
+      - name: bootstrap
+        run: script/bootstrap
+
+      - name: deploy
+        run: script/deploy
