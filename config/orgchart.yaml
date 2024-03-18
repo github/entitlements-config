@@ -3,9 +3,9 @@ danhoerst:
   status:
     - employee
   title: GitHub
-  manager: mrsbworth
+  manager: entitlements-config-bot # for example purposes, we report to a bot
 grantbirki:
   status:
     - employee
   title: GitHub
-  manager: mrsbworth
+  manager: entitlements-config-bot # for example purposes, we report to a bot
