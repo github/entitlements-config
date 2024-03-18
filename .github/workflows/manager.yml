@@ -2,24 +2,23 @@ name: manager
 
 on:
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 permissions:
   pull-requests: write
   contents: read
 
 jobs:
-  rubocop:
-    name: runner
+  manager:
+    name: manager
     runs-on: ubuntu-latest
 
     steps:
-      - uses: ruby/setup-ruby@cd4241788aec4fdcd3325da7068efa9b62a017af
+      - uses: ruby/setup-ruby@d4526a55538b775af234ba4af27118ed6f8f6677 # pin@v1.172.0
         with:
-          ruby-version: 3.2.0
           bundler-cache: true
 
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -30,6 +29,6 @@ jobs:
         run: echo "managers=$(examples/manager_review)" >> $GITHUB_ENV
 
       - uses: delivery-much/actions-assigner@ef457092b82f63fe69b1b36279a4d9a3946859c5 # pin@v1
-        if: "${{ env.manager != '' }}"
+        if: "${{ env.managers != '' }}"
         with:
           reviewers: "${{ env.managers }}"

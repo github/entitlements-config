@@ -17,13 +17,12 @@ jobs:
         uses: github/branch-deploy@fb5baec9eccc077f582d8850521b8bc3043f550f # pin@v2.0.0
         
       # Check out the ref from the output of the IssueOps command
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # pin@v3.0.2
+      - uses: actions/checkout@v4
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
 
-      - uses: ruby/setup-ruby@cd4241788aec4fdcd3325da7068efa9b62a017af
+      - uses: ruby/setup-ruby@d4526a55538b775af234ba4af27118ed6f8f6677 # pin@v1.172.0
         with:
-          ruby-version: 3.2.0
           bundler-cache: true
 
       - name: bootstrap
