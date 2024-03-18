@@ -28,6 +28,7 @@ jobs:
         with:
           json_diff_file_output: diff.json
           file_output_only: "true"
+          max_buffer_size: 10000000000
 
       # Print the diff in JSON format
       - name: print json diff
