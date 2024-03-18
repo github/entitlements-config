@@ -6,6 +6,9 @@ input_file_path = ENV.fetch("INPUT_FILE_PATH", "deploy.out")
 puts "reading deployment output from: #{input_file_path}"
 results = File.read(input_file_path)
 
+# if the very last line is a newline, remove it
+results = results.chomp
+
 erb_template = ENV.fetch("TEMPLATE", ".github/deployment_message.md")
 template = ERB.new(File.read(erb_template))
 # render the ERB template with binding on <%= results %> to replace it with the results
