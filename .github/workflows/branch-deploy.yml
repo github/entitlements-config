@@ -34,7 +34,7 @@ jobs:
           sticky_locks: "true" # https://github.com/github/branch-deploy/blob/1f6516ef5092890ce75d9e97ca7cbdb628e38bdd/docs/hubot-style-deployment-locks.md
         
       # Check out the ref from the output of the IssueOps command
-      - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # pin@v3.0.2
+      - uses: actions/checkout@v4
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           ref: ${{ steps.branch-deploy.outputs.ref }}
@@ -42,7 +42,6 @@ jobs:
       - uses: ruby/setup-ruby@cd4241788aec4fdcd3325da7068efa9b62a017af
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
-          ruby-version: 3.2.0
           bundler-cache: true
 
       - name: bootstrap

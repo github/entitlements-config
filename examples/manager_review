@@ -2,7 +2,7 @@
 
 if [ -z $GITHUB_HEAD_REF ];
 then
-    GITHUB_HEAD_REF=$(git rev-parse --abbrev-ref HEAD)
+  GITHUB_HEAD_REF=$(git rev-parse --abbrev-ref HEAD)
 fi
 
 # Get the PR diff
@@ -17,8 +17,14 @@ while IFS='' read -r FILES; do
     	# Grab the manager from the Org Chart for each affected user
     	export name=$name
         manager=$(yq e '.[env(name)].manager' config/orgchart.yaml)
+
+        # skip if manager is null
+        if [[ -z $manager ]] || [[ $manager = "null" ]];
+        then
+          continue
+        fi
+
         echo $manager
-        exit 0
     	IFS=''
     fi
   done

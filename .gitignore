@@ -19,3 +19,5 @@ coverage/*
 .idea
 
 deploy-output.txt
+
+tmp/
