@@ -3,14 +3,9 @@ danhoerst:
   status:
     - employee
   title: GitHub
-  manager: hubot # for example purposes, we report to a bot
+  manager: mrsbworth
 grantbirki:
   status:
     - employee
   title: GitHub
-  manager: hubot # for example purposes, we report to a bot
-evilgrantbirki:
-  status:
-    - employee
-  title: GitHub
-  manager: hubot # for example purposes, we report to a bot
+  manager: mrsbworth
