@@ -35,11 +35,11 @@ jobs:
           sticky_locks: "true" # https://github.com/github/branch-deploy/blob/1f6516ef5092890ce75d9e97ca7cbdb628e38bdd/docs/hubot-style-deployment-locks.md
           allow_forks: "false"
         
-      # Check out the ref from the output of the IssueOps command
+      # Check out the exact commit SHA from the output of the IssueOps command
       - uses: actions/checkout@v4
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
-          ref: ${{ steps.branch-deploy.outputs.ref }}
+          ref: ${{ steps.branch-deploy.outputs.sha }}
 
       - uses: ruby/setup-ruby@d4526a55538b775af234ba4af27118ed6f8f6677 # pin@v1.172.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
