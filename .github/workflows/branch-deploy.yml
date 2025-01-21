@@ -41,7 +41,7 @@ jobs:
         with:
           ref: ${{ steps.branch-deploy.outputs.sha }}
 
-      - uses: ruby/setup-ruby@d4526a55538b775af234ba4af27118ed6f8f6677 # pin@v1.172.0
+      - uses: ruby/setup-ruby@28c4deda893d5a96a6b2d958c5b47fc18d65c9d3 # pin@v1.213.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           bundler-cache: true
