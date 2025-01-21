@@ -10,7 +10,7 @@ Example entitlements-app configuration can be found in [`config/entitlements.yam
 
 ## entitlements files 📂
 
-Example entitlements files can be found in [`entitlements/`](entitlements/)
+Example entitlements files can be found in [`entitlements/`](entitlements/).
 
 ## GitHub Actions 🚀
 
