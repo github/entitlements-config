@@ -2,4 +2,4 @@
 
 source "https://rubygems.org"
 
-gem "entitlements-app", "~> 0.3.1"
+gem "entitlements-app", "~> 1"
