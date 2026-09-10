@@ -17,7 +17,7 @@ jobs:
     steps:
       # https://github.com/github/branch-deploy/blob/d3c24bd92505e623615b75ffdfac5ed5259adbdb/docs/merge-commit-strategy.md
       - name: deployment check
-        uses: github/branch-deploy@v10
+        uses: github/branch-deploy@c9fcc362bdcea69eecac6578dde245cd5e3a55bf # v10.4.3
         id: deployment-check
         with:
           merge_deploy_mode: "true"
@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       
       - uses: ruby/setup-ruby@28c4deda893d5a96a6b2d958c5b47fc18d65c9d3 # pin@v1.213.0
         with:

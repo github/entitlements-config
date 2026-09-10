@@ -28,7 +28,7 @@ jobs:
     steps:
       - name: branch-deploy
         id: branch-deploy
-        uses: github/branch-deploy@v10
+        uses: github/branch-deploy@c9fcc362bdcea69eecac6578dde245cd5e3a55bf # v10.4.3
         with:
           trigger: ".deploy"
           environment: "production"
@@ -36,7 +36,7 @@ jobs:
           allow_forks: "false"
         
       # Check out the exact commit SHA from the output of the IssueOps command
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           ref: ${{ steps.branch-deploy.outputs.sha }}
