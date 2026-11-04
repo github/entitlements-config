@@ -18,6 +18,7 @@ jobs:
     name: branch-deploy
     if: # only run on pull request comments and very specific comment body string as defined in our branch-deploy settings
       ${{ github.event.issue.pull_request &&
+      contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association) &&
       (startsWith(github.event.comment.body, '.deploy') ||
       startsWith(github.event.comment.body, '.noop') ||
       startsWith(github.event.comment.body, '.lock') ||
@@ -41,6 +42,7 @@ jobs:
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
           ref: ${{ steps.branch-deploy.outputs.sha }}
+          persist-credentials: false
 
       - uses: ruby/setup-ruby@28c4deda893d5a96a6b2d958c5b47fc18d65c9d3 # pin@v1.213.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}

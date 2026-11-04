@@ -31,6 +31,12 @@ This project uses the [`github/branch-deploy`](https://github.com/github/branch-
 
 Here is an [example pull request](https://github.com/github/entitlements-config/pull/30) showing how you can easily deploy changes by commenting `.deploy` on a pull request.
 
+Branch-deploy commands are limited to comments from repository owners,
+organization members, or repository collaborators. The `branch-deploy` Action
+also requires write or admin permission and disallows fork deployments. Bots
+without an allowed author association cannot trigger these commands. The
+checkout uses the Action-selected commit SHA and does not persist Git credentials.
+
 ## Examples 📸
 
 The scripts which the example Actions run can be found in [`examples/`](examples/)
