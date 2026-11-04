@@ -2,4 +2,6 @@
 
 source "https://rubygems.org"
 
-gem "entitlements-app", "~> 1"
+source "https://rubygems.pkg.github.com/github" do
+  gem "entitlements-app", "~> 1"
+end
