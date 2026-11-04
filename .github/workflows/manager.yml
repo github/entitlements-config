@@ -7,6 +7,7 @@ on:
 permissions:
   pull-requests: write
   contents: read
+  packages: read
 
 jobs:
   manager:
@@ -19,6 +20,8 @@ jobs:
           fetch-depth: 0
 
       - uses: ruby/setup-ruby@28c4deda893d5a96a6b2d958c5b47fc18d65c9d3 # pin@v1.213.0
+        env:
+          BUNDLE_RUBYGEMS__PKG__GITHUB__COM: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
         with:
           bundler-cache: true
 
