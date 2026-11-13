@@ -34,12 +34,45 @@ jobs:
           environment: "production"
           sticky_locks: "true" # https://github.com/github/branch-deploy/blob/1f6516ef5092890ce75d9e97ca7cbdb628e38bdd/docs/hubot-style-deployment-locks.md
           allow_forks: "false"
-        
-      # Check out the exact commit SHA from the output of the IssueOps command
+          stable_branch: "main"
+          allow_sha_deployments: "false"
+
+      - name: Require a trusted deployment target
+        id: trusted-target
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        uses: actions/github-script@v7
+        env:
+          DEPLOY_REF: ${{ steps.branch-deploy.outputs.ref }}
+          DEPLOY_SHA: ${{ steps.branch-deploy.outputs.sha }}
+        with:
+          script: |
+            if (process.env.DEPLOY_REF !== 'main') {
+              throw new Error('PR deployments are disabled. Use .deploy main or .noop main.');
+            }
+            const { data: branch } = await github.rest.repos.getBranch({
+              ...context.repo,
+              branch: 'main'
+            });
+            if (process.env.DEPLOY_SHA !== branch.commit.sha) {
+              throw new Error('The deployment SHA must match the current main commit. Retry the command.');
+            }
+            core.setOutput('sha', branch.commit.sha);
+
       - uses: actions/checkout@v4
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
         with:
-          ref: ${{ steps.branch-deploy.outputs.sha }}
+          ref: refs/heads/main
+          persist-credentials: false
+
+      - name: Verify the checked-out main commit
+        if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
+        env:
+          EXPECTED_SHA: ${{ steps.trusted-target.outputs.sha }}
+        run: |
+          if [[ "$(git rev-parse HEAD)" != "$EXPECTED_SHA" ]]; then
+            echo "::error::main changed during checkout. Retry the deployment command."
+            exit 1
+          fi
 
       - uses: ruby/setup-ruby@28c4deda893d5a96a6b2d958c5b47fc18d65c9d3 # pin@v1.213.0
         if: ${{ steps.branch-deploy.outputs.continue == 'true' }}
