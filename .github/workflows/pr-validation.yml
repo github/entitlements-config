@@ -1,0 +1,40 @@
+name: PR validation
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: ruby/setup-ruby@28c4deda893d5a96a6b2d958c5b47fc18d65c9d3 # pin@v1.213.0
+        with:
+          bundler-cache: true
+
+      - name: bootstrap
+        run: script/bootstrap
+
+      - name: validate entitlements against the local LDAP fixture
+        run: script/deploy --noop
+
+      - name: Save PR number
+        env:
+          PR_NUMBER: ${{ github.event.number }}
+        run: |
+          mkdir -p pr
+          printf '%s\n' "$PR_NUMBER" > pr/NR
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr
+          path: pr/NR
+          if-no-files-found: error

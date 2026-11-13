@@ -1,0 +1,63 @@
+name: PR validation results
+
+on:
+  workflow_run:
+    workflows: ["PR validation"]
+    types: [completed]
+
+permissions:
+  actions: read
+  pull-requests: write
+
+jobs:
+  comment:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pr
+          path: pr
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: Comment on the validated PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const run = context.payload.workflow_run;
+            const numberPath = 'pr/NR';
+            if (fs.lstatSync(numberPath).isSymbolicLink() ||
+                fs.statSync(numberPath).size > 32) {
+              throw new Error('Invalid PR number artifact.');
+            }
+            const value = fs.readFileSync(numberPath, 'utf8').trim();
+            const number = Number(value);
+            if (!/^[1-9]\d*$/.test(value) || !Number.isSafeInteger(number)) {
+              throw new Error('The artifact must contain a positive integer PR number.');
+            }
+            const source = run.pull_requests.find(pr => pr.number === number);
+            if (!source) {
+              throw new Error('The artifact PR does not belong to this workflow run.');
+            }
+            const { data: pr } = await github.rest.pulls.get({
+              ...context.repo,
+              pull_number: number
+            });
+            if (pr.state !== 'open' || pr.base.ref !== 'main' ||
+                pr.base.repo.full_name !== context.payload.repository.full_name ||
+                pr.head.repo.full_name !== context.payload.repository.full_name ||
+                pr.head.sha !== source.head.sha || pr.head.sha !== run.head_sha) {
+              throw new Error('The PR is closed, untrusted, or has changed since validation.');
+            }
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: number,
+              body: `PR validation passed for ${pr.head.sha}. See ${run.html_url}. No deployment was performed.`
+            });
