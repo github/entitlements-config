@@ -16,9 +16,9 @@ Example entitlements files can be found in [`entitlements/`](entitlements/)
 
 An example of deployment and manager review GitHub Actions can be found in [`.github/workflows`](.github/workflows)
 
-This project uses the [`github/branch-deploy`](https://github.com/github/branch-deploy) Action for authorized IssueOps commands. Deployments are restricted to the current trusted `main` commit: comment `.deploy main` on a pull request to redeploy `main`, or `.noop main` to bootstrap without deploying. Bare `.deploy` and `.noop` commands targeting PR branches are rejected, so untrusted pull request code never runs in the privileged workflow. Lock, unlock, help, and lock-info commands remain available.
+This project uses the [`github/branch-deploy`](https://github.com/github/branch-deploy) Action to facilitate deployments. The `branch-deploy` Action is used to "branch deploy" pull requests to a given environment (in this case production) so that changes can be previewed before merging.
 
-Changes are deployed after merging to `main` by the existing [deployment workflow](.github/workflows/deploy.yml). Protect `main` with appropriate review and branch-protection rules.
+Here is an [example pull request](https://github.com/github/entitlements-config/pull/30) showing how you can easily deploy changes by commenting `.deploy` on a pull request.
 
 ## Examples 📸
 
